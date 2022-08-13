@@ -5,24 +5,28 @@
 // Виведи об'єкт із введеними даними в консоль і очисти значення полів форми методом reset.
 
 const form = document.querySelector(".login-form");
-
-form.addEventListener("submit", handleSubmit);
-
-function handleSubmit(event) {
+form.addEventListener("submit", onFormSubmit);
+function onFormSubmit(event) {
   event.preventDefault();
-  const {
-    elements: { email, password },
-  } = event.currentTarget;
 
-  if (email.value === "" || password.value === "") {
-    return alert("Please fill in all the fields!");
+  //достукуюсь до мейлу і паролю через .elements
+
+  const formElements = event.currentTarget.elements;
+  const mail = formElements.email.value;
+  const password = formElements.password.value;
+  if (form.email.value === "" || form.password.value === "") {
+    alert("Please fill in all the fields!");
   }
 
-  const formData = new FormData(event.currentTarget);
-  console.log(formData);
-  formData.forEach((value, name) => {
-    console.log("handleSubmit -> name:", name);
-    console.log("handleSubmit -> value:", value);
-    event.currentTarget.reset();
-  });
+  //а тут створюю об'єкт який виводжу у консоль
+
+  const finalForm = {
+    mail,
+    password,
+  };
+  console.log(finalForm);
+
+  //а потім роблю ресет
+
+  event.currentTarget.reset();
 }
